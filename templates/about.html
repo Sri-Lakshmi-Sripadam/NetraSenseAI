@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About - NetraSenseAI</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:#f5f9ff;min-height:100vh}
+.header-mini{
+  background:linear-gradient(135deg,#0f2c4d,#1565C0 70%,#1e88e5);
+  padding:18px 6%; display:flex; justify-content:space-between; align-items:center; color:white;
+  position:sticky; top:0; z-index:10; box-shadow:0 4px 20px rgba(15,44,77,0.15);
+}
+.header-mini a{color:white;text-decoration:none;font-weight:700}
+.back-btn{background:rgba(255,255,255,0.15);padding:8px 18px;border-radius:20px;font-size:13px;border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(10px);transition:0.3s}
+.back-btn:hover{background:rgba(255,255,255,0.25)}
+.container{width:90%;max-width:1050px;margin:40px auto}
+.hero{
+  background:linear-gradient(135deg,rgba(255,255,255,0.95),rgba(240,247,255,0.95));
+  padding:40px 35px;border-radius:22px;text-align:center;
+  box-shadow:0 12px 40px rgba(15,44,77,0.08);border:1px solid #e8eef8;
+  position:relative;overflow:hidden;
+}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#0f2c4d,#1e88e5,#6a5af9)}
+.hero h1{font-size:38px;font-weight:800;color:#0f2c4d;letter-spacing:-1px}
+.hero p{color:#5a6d8a;max-width:720px;margin:14px auto 0;line-height:1.7;font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-top:28px}
+.card{
+  background:white;padding:28px 26px;border-radius:18px;
+  box-shadow:0 8px 30px rgba(15,44,77,0.06);border:1px solid #eef3fb;
+  transition:0.3s;
+}
+.card:hover{transform:translateY(-4px);box-shadow:0 16px 45px rgba(21,101,192,0.12)}
+.card h2{color:#0f2c4d;font-size:18px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.card h2 .ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.card p, .card ul{color:#5a6d8a;font-size:14px;line-height:1.8}
+.card ul{padding-left:18px}
+.card ul li{margin:6px 0}
+.tech{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.tech span{background:#f0f7ff;color:#1565C0;padding:7px 14px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid #d6eaff}
+.footer-card{
+  margin-top:28px;background:linear-gradient(135deg,#0f2c4d,#1565C0);color:white;
+  padding:30px 32px;border-radius:18px;display:flex;gap:20px;align-items:flex-start;
+}
+.footer-card h3{font-size:18px;margin-bottom:8px}
+.footer-card p{opacity:0.9;line-height:1.6;font-size:14px}
+</style>
+</head>
+<body>
+
+<div class="header-mini">
+  <a href="/dashboard">👁️ NetraSenseAI</a>
+  <a href="/dashboard" class="back-btn">← Back to Dashboard</a>
+</div>
+
+<div class="container">
+  <div class="hero">
+    <h1>👁️ About NetraSenseAI</h1>
+    <p>NetraSenseAI is an <b>AI-powered eye disease screening & vision assessment platform</b> designed to help users perform basic eye screening from anywhere. It combines traditional vision tests with deep learning-based disease detection.</p>
+    <div class="tech" style="justify-content:center;margin-top:20px;">
+      <span>🧠 EfficientNetB0</span><span>🎯 91% Accuracy</span><span>⚡ Flask</span><span>👁️ 5 Diseases</span><span>📦 TensorFlow</span>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2><span class="ic" style="background:#e3f2fd;">🎯</span> Objectives</h2>
+      <ul>
+        <li>Provide instant basic vision screening</li>
+        <li>Detect eye diseases using AI (EfficientNetB0)</li>
+        <li>Increase awareness of eye health</li>
+        <li>Encourage early medical consultation</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2><span class="ic" style="background:#e8f5e9;">⚙️</span> Technologies Used</h2>
+      <div class="tech">
+        <span>Python</span><span>Flask</span><span>TensorFlow / Keras</span>
+        <span>EfficientNetB0</span><span>OpenCV</span><span>HTML5</span><span>CSS3</span><span>JavaScript</span>
+      </div>
+      <p style="margin-top:16px;"><b>Model:</b> EfficientNetB0 fine-tuned on 2000+ eye images<br><b>Params:</b> 7.7M • <b>Accuracy:</b> 91% • <b>Classes:</b> 5</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="ic" style="background:#fff3e0;">✨</span> Features</h2>
+      <ul>
+        <li>Visual Acuity Test (Snellen)</li>
+        <li>Color Vision Test (Ishihara)</li>
+        <li>Contrast Sensitivity Test</li>
+        <li>AI Disease Detection (5 diseases)</li>
+        <li>Smart Vision Report</li>
+        <li>Personalized Eye Care Tips</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2><span class="ic" style="background:#f3e5f5;">👨‍⚕️</span> How It Works</h2>
+      <p>1. User registers & logs in securely<br>
+         2. Performs vision tests in browser<br>
+         3. Uploads eye image for AI analysis<br>
+         4. Gets instant prediction with confidence<br>
+         5. Downloads personalized report<br><br>
+         <b style="color:#0f2c4d;">Built for Impact:</b> Early screening → Early treatment
+      </p>
+    </div>
+  </div>
+
+  <div class="footer-card">
+    <div style="font-size:36px;">⚠️</div>
+    <div>
+      <h3>Medical Disclaimer</h3>
+      <p>NetraSenseAI is intended only as a <b>screening tool</b>. It does not replace diagnosis by a qualified ophthalmologist. Our AI model has 91% accuracy but users should always consult an eye specialist for proper medical evaluation. Early detection saves vision.</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

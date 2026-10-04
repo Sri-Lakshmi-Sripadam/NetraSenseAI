@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eye Care Tips - NetraSenseAI</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:#f5f9ff;min-height:100vh}
+.header-mini{background:linear-gradient(135deg,#0f2c4d,#1565C0 70%,#1e88e5);padding:16px 6%;display:flex;justify-content:space-between;align-items:center;color:white;position:sticky;top:0;z-index:10}
+.header-mini a{color:white;text-decoration:none;font-weight:700}
+.container{width:92%;max-width:1050px;margin:36px auto}
+.hero{
+  background:white;padding:32px 30px;border-radius:20px;text-align:center;
+  box-shadow:0 10px 30px rgba(15,44,77,0.06);border:1px solid #e8eef8;position:relative;overflow:hidden
+}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#0f2c4d,#1e88e5,#6a5af9)}
+.hero h1{color:#0f2c4d;font-size:32px;font-weight:800}
+.hero p{color:#7a8da8;font-size:14px;margin-top:8px}
+.stats{display:flex;justify-content:center;gap:14px;margin-top:18px;flex-wrap:wrap}
+.stats span{background:#f0f7ff;color:#1565C0;padding:7px 14px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid #d6eaff}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:28px}
+.tip-card{
+  background:white;padding:26px;border-radius:18px;box-shadow:0 8px 28px rgba(15,44,77,0.06);
+  border:1px solid #eef3fb;transition:0.3s;position:relative;overflow:hidden
+}
+.tip-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(21,101,192,0.12)}
+.tip-card::before{content:'';position:absolute;top:0;left:0;width:5px;height:100%}
+.tip-card:nth-child(1)::before{background:linear-gradient(#1e88e5,#90caf9)}
+.tip-card:nth-child(2)::before{background:linear-gradient(#00acc1,#80deea)}
+.tip-card:nth-child(3)::before{background:linear-gradient(#43a047,#a5d6a7)}
+.tip-card:nth-child(4)::before{background:linear-gradient(#8e24aa,#ce93d8)}
+.tip-card:nth-child(5)::before{background:linear-gradient(#fb8c00,#ffcc80)}
+.tip-card:nth-child(6)::before{background:linear-gradient(#3949ab,#9fa8da)}
+.tip-card:nth-child(7)::before{background:linear-gradient(#00897b,#80cbc4)}
+.tip-head{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.tip-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px}
+.tip-card h2{color:#0f2c4d;font-size:16px;font-weight:700;line-height:1.3}
+.tip-card p{color:#5a6d8a;font-size:14px;line-height:1.7;margin-top:8px}
+.tip-tag{display:inline-block;margin-top:14px;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700}
+.bonus{
+  margin-top:26px;background:linear-gradient(135deg,#0f2c4d,#1565C0);color:white;
+  padding:28px;border-radius:18px;display:flex;gap:20px;align-items:center;flex-wrap:wrap
+}
+.bonus h3{font-size:18px;margin-bottom:6px}
+.bonus p{opacity:0.9;font-size:13px;line-height:1.6}
+.btn{display:inline-block;margin-top:28px;background:linear-gradient(90deg,#0f2c4d,#1e88e5);color:white;text-decoration:none;padding:14px 28px;border-radius:14px;font-weight:700;font-size:14px;box-shadow:0 10px 25px rgba(21,101,192,0.3);transition:0.3s}
+.btn:hover{transform:translateY(-2px)}
+</style>
+</head>
+<body>
+
+<div class="header-mini">
+  <a href="/dashboard">👁️ NetraSenseAI</a>
+  <a href="/dashboard" style="background:rgba(255,255,255,0.15);padding:8px 16px;border-radius:20px;font-size:13px;border:1px solid rgba(255,255,255,0.2)">← Dashboard</a>
+</div>
+
+<div class="container">
+
+  <div class="hero">
+    <h1>💡 Eye Care Tips</h1>
+    <p>7 science-backed habits to protect your vision • Recommended by ophthalmologists • Follow daily for healthy eyes</p>
+    <div class="stats">
+      <span>👁️ 7 Expert Tips</span><span>🧠 Doctor Approved</span><span>⏱️ Daily 5 Min</span><span>🛡️ Prevent 80% Issues</span>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <div class="tip-card">
+      <div class="tip-head">
+        <div class="tip-icon" style="background:#e3f2fd">👀</div>
+        <h2>Follow the 20-20-20 Rule</h2>
+      </div>
+      <p>Every <b>20 minutes</b>, look at something <b>20 feet away</b> for at least <b>20 seconds</b>. Reduces digital eye strain by 60% instantly.</p>
+      <span class="tip-tag" style="background:#e3f2fd;color:#1565C0;">💻 For Screen Users</span>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-head">
+        <div class="tip-icon" style="background:#e0f7fa">💧</div>
+        <h2>Blink Frequently</h2>
+      </div>
+      <p>We blink 50% less on screens! <b>Blink 15-20 times per minute</b>. Helps prevent dry eyes, irritation & blurry vision.</p>
+      <span class="tip-tag" style="background:#e0f7fa;color:#00838f;">💧 Prevents Dryness</span>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-head">
+        <div class="tip-icon" style="background:#e8f5e9">🥕</div>
+        <h2>Eat Healthy Foods</h2>
+      </div>
+      <p><b>Carrots, spinach, fish, eggs, citrus fruits & nuts</b> are rich in Vitamin A, C, Omega-3. Boosts retina health naturally.</p>
+      <span class="tip-tag" style="background:#e8f5e9;color:#2e7d32;">🥗 Nutrition</span>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-head">
+        <div class="tip-icon" style="background:#f3e5f5">😴</div>
+        <h2>Get Enough Sleep</h2>
+      </div>
+      <p><b>7-8 hours sleep</b> allows your eyes to rest, repair & stay hydrated. Reduces dark circles, strain & redness.</p>
+      <span class="tip-tag" style="background:#f3e5f5;color:#7b1fa2;">😴 Recovery</span>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-head">
+        <div class="tip-icon" style="background:#fff3e0">🕶</div>
+        <h2>Protect Your Eyes</h2>
+      </div>
+      <p>Wear <b>UV-protected sunglasses</b> outdoors. UV rays cause cataract & macular damage. Even on cloudy days!</p>
+      <span class="tip-tag" style="background:#fff3e0;color:#ef6c00;">☀️ UV Protection</span>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-head">
+        <div class="tip-icon" style="background:#e8eaf6">💻</div>
+        <h2>Maintain Proper Screen Distance</h2>
+      </div>
+      <p>Keep monitor <b>50-70 cm away</b> and slightly below eye level. Top of screen at or below eye level reduces neck + eye strain.</p>
+      <span class="tip-tag" style="background:#e8eaf6;color:#283593;">📏 Ergonomics</span>
+    </div>
+
+    <div class="tip-card" style="grid-column: span 1;">
+      <div class="tip-head">
+        <div class="tip-icon" style="background:#e0f2f1">👨‍⚕️</div>
+        <h2>Regular Eye Check-ups</h2>
+      </div>
+      <p>Visit an <b>ophthalmologist yearly</b>, especially if you notice vision changes. Early detection prevents 80% of blindness!</p>
+      <span class="tip-tag" style="background:#e0f2f1;color:#00695c;">🏥 Must Do Yearly</span>
+    </div>
+
+  </div>
+
+  <div class="bonus">
+    <div style="font-size:44px;">🎯</div>
+    <div style="flex:1;min-width:250px;">
+      <h3>NetraSenseAI Pro Tip</h3>
+      <p>Use our <b>AI Disease Detection</b> every 3 months to track eye health. Upload clear eye image → Get instant screening report. Early screening = Early treatment = Saved vision.</p>
+    </div>
+    <a href="/ai_detection" style="background:white;color:#0f2c4d;padding:12px 22px;border-radius:12px;text-decoration:none;font-weight:700;font-size:14px;white-space:nowrap;">🤖 Scan Now →</a>
+  </div>
+
+  <div style="text-align:center;">
+    <a href="/dashboard" class="btn">⬅ Back to Dashboard</a>
+  </div>
+
+</div>
+
+</body>
+</html>

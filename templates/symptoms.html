@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Symptom Checker - NetraSenseAI</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:#f5f9ff;min-height:100vh}
+.header-mini{background:linear-gradient(135deg,#0f2c4d,#1565C0 70%,#1e88e5);padding:16px 6%;display:flex;justify-content:space-between;align-items:center;color:white;position:sticky;top:0;z-index:10}
+.header-mini a{color:white;text-decoration:none;font-weight:700}
+.container{width:92%;max-width:950px;margin:34px auto}
+.hero{
+  background:white;padding:28px 30px;border-radius:20px;text-align:center;
+  box-shadow:0 10px 30px rgba(15,44,77,0.06);border:1px solid #e8eef8;position:relative;overflow:hidden
+}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#0f2c4d,#1e88e5,#6a5af9)}
+.hero h1{color:#0f2c4d;font-size:28px;font-weight:800}
+.hero p{color:#7a8da8;font-size:14px;margin-top:6px}
+.progress-wrap{margin-top:18px;background:#f0f4fa;height:8px;border-radius:10px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#0f2c4d,#1e88e5);width:0%;transition:0.4s}
+.counter{margin-top:10px;font-size:13px;color:#1565C0;font-weight:700}
+.card{background:white;margin-top:22px;padding:28px;border-radius:20px;box-shadow:0 8px 28px rgba(15,44,77,0.06);border:1px solid #eef3fb}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.sym-item{
+  position:relative;background:#f8fbff;border:2px solid #eef3fb;border-radius:14px;
+  padding:16px 18px;cursor:pointer;transition:0.25s;display:flex;align-items:center;gap:14px
+}
+.sym-item:hover{border-color:#b6d2f5;background:#f0f7ff;transform:translateY(-2px)}
+.sym-item.active{border-color:#1e88e5;background:linear-gradient(135deg,#e3f2fd,#f0f7ff);box-shadow:0 6px 18px rgba(30,136,229,0.15)}
+.sym-item input{position:absolute;opacity:0;pointer-events:none}
+.sym-icon{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.sym-text{font-size:14px;font-weight:600;color:#0f2c4d;line-height:1.3}
+.sym-item.active .sym-text{color:#1565C0}
+.check{margin-left:auto;width:24px;height:24px;border:2px solid #d0dcef;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:0.25s;flex-shrink:0}
+.sym-item.active .check{background:#1e88e5;border-color:#1e88e5;color:white}
+.submit-btn{
+  width:100%;padding:16px;margin-top:24px;background:linear-gradient(90deg,#0f2c4d,#1565C0,#1e88e5);
+  color:white;border:none;border-radius:14px;font-weight:700;font-size:16px;cursor:pointer;
+  box-shadow:0 10px 25px rgba(21,101,192,0.35);transition:0.3s
+}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 14px 35px rgba(21,101,192,0.45)}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.back{display:block;text-align:center;margin-top:18px;text-decoration:none;color:#5a6d8a;font-weight:600;font-size:14px}
+</style>
+</head>
+<body>
+
+<div class="header-mini">
+  <a href="/dashboard">👁️ NetraSenseAI</a>
+  <a href="/dashboard" style="background:rgba(255,255,255,0.15);padding:8px 16px;border-radius:20px;font-size:13px;border:1px solid rgba(255,255,255,0.2)">← Dashboard</a>
+</div>
+
+<div class="container">
+
+  <div class="hero">
+    <h1>📝 Symptom Checker</h1>
+    <p>Select all symptoms you are experiencing. Our AI will map possible eye conditions instantly.</p>
+    <div class="progress-wrap"><div class="progress-fill" id="pFill"></div></div>
+    <div class="counter" id="counter">0 symptoms selected • Select at least 1 to analyze</div>
+  </div>
+
+  <form method="POST" id="symForm">
+    <div class="card">
+      <h3 style="color:#0f2c4d;font-size:16px;margin-bottom:16px;">👁️ Choose your symptoms:</h3>
+      <div class="grid">
+        
+        <label class="sym-item">
+          <input type="checkbox" name="symptoms" value="Blurred Vision">
+          <div class="sym-icon" style="background:#e3f2fd">🌫️</div>
+          <div class="sym-text">Blurred Vision</div>
+          <div class="check">✓</div>
+        </label>
+
+        <label class="sym-item">
+          <input type="checkbox" name="symptoms" value="Redness">
+          <div class="sym-icon" style="background:#ffebee">🔴</div>
+          <div class="sym-text">Eye Redness</div>
+          <div class="check">✓</div>
+        </label>
+
+        <label class="sym-item">
+          <input type="checkbox" name="symptoms" value="Watery Eyes">
+          <div class="sym-icon" style="background:#e0f7fa">💧</div>
+          <div class="sym-text">Watery Eyes</div>
+          <div class="check">✓</div>
+        </label>
+
+        <label class="sym-item">
+          <input type="checkbox" name="symptoms" value="Eye Pain">
+          <div class="sym-icon" style="background:#fff3e0">🤕</div>
+          <div class="sym-text">Eye Pain</div>
+          <div class="check">✓</div>
+        </label>
+
+        <label class="sym-item">
+          <input type="checkbox" name="symptoms" value="Sensitivity to Light">
+          <div class="sym-icon" style="background:#fff9c4">💡</div>
+          <div class="sym-text">Sensitivity to Light</div>
+          <div class="check">✓</div>
+        </label>
+
+        <label class="sym-item">
+          <input type="checkbox" name="symptoms" value="Swollen Eyelids">
+          <div class="sym-icon" style="background:#fce4ec">😣</div>
+          <div class="sym-text">Swollen Eyelids</div>
+          <div class="check">✓</div>
+        </label>
+
+        <label class="sym-item">
+          <input type="checkbox" name="symptoms" value="Itching">
+          <div class="sym-icon" style="background:#f3e5f5">🤧</div>
+          <div class="sym-text">Itching</div>
+          <div class="check">✓</div>
+        </label>
+
+        <label class="sym-item">
+          <input type="checkbox" name="symptoms" value="Blurred Vision at Night">
+          <div class="sym-icon" style="background:#e8eaf6">🌙</div>
+          <div class="sym-text">Difficulty Seeing at Night</div>
+          <div class="check">✓</div>
+        </label>
+
+        <label class="sym-item">
+          <input type="checkbox" name="symptoms" value="Floaters">
+          <div class="sym-icon" style="background:#efebe9">⚫</div>
+          <div class="sym-text">Floaters</div>
+          <div class="check">✓</div>
+        </label>
+
+        <label class="sym-item">
+          <input type="checkbox" name="symptoms" value="Burning">
+          <div class="sym-icon" style="background:#ffebee">🔥</div>
+          <div class="sym-text">Burning Sensation</div>
+          <div class="check">✓</div>
+        </label>
+
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn" disabled>🔍 Check Possible Disease (Select symptoms)</button>
+      <p style="text-align:center;margin-top:12px;font-size:12px;color:#7a8da8;">AI mapping • Not a medical diagnosis • Consult ophthalmologist for confirmation</p>
+    </div>
+  </form>
+
+  <a href="/dashboard" class="back">⬅ Back to Dashboard</a>
+
+</div>
+
+<script>
+const items = document.querySelectorAll('.sym-item');
+const checkboxes = document.querySelectorAll('input[type=checkbox]');
+const counter = document.getElementById('counter');
+const pFill = document.getElementById('pFill');
+const submitBtn = document.getElementById('submitBtn');
+
+function update(){
+  const checked = document.querySelectorAll('input[type=checkbox]:checked');
+  const count = checked.length;
+  const total = checkboxes.length;
+  pFill.style.width = (count/total*100)+'%';
+  
+  items.forEach(label=>{
+    const cb = label.querySelector('input');
+    label.classList.toggle('active', cb.checked);
+  });
+
+  if(count>0){
+    counter.textContent = `${count} symptom${count>1?'s':''} selected • Ready to analyze!`;
+    counter.style.color = '#2e7d32';
+    submitBtn.disabled = false;
+    submitBtn.textContent = `🔍 Analyze ${count} Symptom${count>1?'s':''} →`;
+  } else {
+    counter.textContent = '0 symptoms selected • Select at least 1 to analyze';
+    counter.style.color = '#1565C0';
+    submitBtn.disabled = true;
+    submitBtn.textContent = '🔍 Check Possible Disease (Select symptoms)';
+  }
+}
+
+checkboxes.forEach(cb=>cb.addEventListener('change', update));
+items.forEach(label=>{
+  label.addEventListener('click', (e)=>{
+    // label click already toggles checkbox via default, just update after
+    setTimeout(update, 10);
+  });
+});
+update();
+</script>
+
+</body>
+</html>

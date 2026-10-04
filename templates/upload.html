@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload Eye Image - NetraSenseAI</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:#f5f9ff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.card{
+  width:100%;max-width:720px;background:white;border-radius:22px;
+  box-shadow:0 20px 60px rgba(15,44,77,0.12);border:1px solid #eef3fb;
+  overflow:hidden;position:relative
+}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,#0f2c4d,#1565C0,#1e88e5,#6a5af9)}
+.header{padding:34px 36px 20px;text-align:center}
+.header h1{color:#0f2c4d;font-size:32px;font-weight:800;letter-spacing:-0.5px}
+.header p{color:#7a8da8;font-size:14px;margin-top:8px;line-height:1.6}
+.badges{display:flex;justify-content:center;gap:8px;margin-top:16px;flex-wrap:wrap}
+.badges span{background:#f0f7ff;color:#1565C0;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid #d6eaff}
+.upload-area{
+  margin:24px 30px;background:linear-gradient(180deg,#f8fbff,#f0f7ff);
+  border:2.5px dashed #b6d2f5;border-radius:18px;padding:36px 24px;
+  text-align:center;transition:0.3s;cursor:pointer
+}
+.upload-area:hover{border-color:#1e88e5;background:#eef6ff;transform:translateY(-2px)}
+.upload-area.dragover{border-color:#1e88e5;background:#e3f2fd;transform:scale(1.01)}
+.upload-area.icon{font-size:58px;margin-bottom:10px}
+.upload-area h3{color:#0f2c4d;font-size:18px;font-weight:700}
+.upload-area p{color:#7a8da8;font-size:12px;margin-top:6px}
+input[type=file]{display:none}
+.choose-btn{margin-top:18px;display:inline-block;background:white;color:#1565C0;padding:10px 22px;border-radius:12px;font-weight:700;font-size:14px;border:2px solid #d6eaff;cursor:pointer;transition:0.3s}
+.choose-btn:hover{background:#1565C0;color:white;border-color:#1565C0}
+#preview{margin:20px auto 0;width:280px;max-width:100%;border-radius:16px;display:none;box-shadow:0 12px 30px rgba(15,44,77,0.18);border:3px solid white}
+#fileName{margin-top:12px;font-size:13px;color:#1565C0;font-weight:600;display:none}
+.submit-wrap{padding:0 30px 30px}
+.submit-btn{
+  width:100%;padding:16px;background:linear-gradient(90deg,#0f2c4d,#1565C0,#1e88e5);
+  color:white;border:none;border-radius:14px;font-weight:700;font-size:16px;cursor:pointer;
+  box-shadow:0 10px 25px rgba(21,101,192,0.35);transition:0.3s
+}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 14px 35px rgba(21,101,192,0.45)}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.footer{padding:16px 30px;background:#f8fbff;border-top:1px solid #eef3fb;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.footer a{text-decoration:none;color:#5a6d8a;font-weight:600;font-size:13px}
+.footer a:hover{color:#1565C0}
+.warn{display:flex;gap:10px;align-items:flex-start;background:#fff8e1;border:1px solid #ffe082;color:#8d6e00;padding:12px 14px;border-radius:12px;font-size:12px;font-weight:600;margin:0 30px 20px;text-align:left}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="header">
+    <div style="font-size:40px;">👁️</div>
+    <h1>Upload Eye Image</h1>
+    <p>Upload clear front eye photo for <b>AI-powered disease detection</b><br>EfficientNetB0 • 91% Accuracy • 5 Diseases</p>
+    <div class="badges">
+      <span>🧠 EfficientNetB0</span><span>🎯 91% Accurate</span><span>⚡ Instant</span><span>🛡️ Secure</span>
+    </div>
+  </div>
+
+  <form action="/predict" method="POST" enctype="multipart/form-data" id="form">
+    <div class="upload-area" id="drop">
+      <div class="icon">📤</div>
+      <h3>Drop image here or click to browse</h3>
+      <p>JPG, PNG, JPEG • Max 10MB • Front clear eye photo works best</p>
+      <label class="choose-btn" for="fileInput">📁 Choose File</label>
+      <input type="file" id="fileInput" name="eyeimage" accept="image/*" required>
+      <img id="preview">
+      <div id="fileName"></div>
+    </div>
+
+    <div class="warn">
+      <span>⚠️</span><span>AI screening only, not medical diagnosis. Consult ophthalmologist for confirmation.</span>
+    </div>
+
+    <div class="submit-wrap">
+      <button type="submit" class="submit-btn" id="submitBtn" disabled>🔍 Analyze Eye →</button>
+    </div>
+  </form>
+
+  <div class="footer">
+    <a href="/dashboard">⬅ Back to Dashboard</a>
+    <span style="font-size:11px;color:#9aa8bd;">NetraSenseAI © 2026 • Python • Flask • TensorFlow</span>
+    <a href="/tips">💡 Eye Care Tips →</a>
+  </div>
+</div>
+
+<script>
+const drop = document.getElementById('drop');
+const input = document.getElementById('fileInput');
+const preview = document.getElementById('preview');
+const fileName = document.getElementById('fileName');
+const submitBtn = document.getElementById('submitBtn');
+
+function handleFile(file){
+  if(!file) return;
+  preview.src = URL.createObjectURL(file);
+  preview.style.display = 'block';
+  fileName.textContent = '✅ ' + file.name + ' (' + (file.size/1024/1024).toFixed(2) + ' MB)';
+  fileName.style.display = 'block';
+  submitBtn.disabled = false;
+  submitBtn.textContent = '🔍 Analyze ' + file.name + ' →';
+}
+
+input.addEventListener('change', e=>handleFile(e.target.files[0]));
+
+// Drag & Drop
+['dragenter','dragover'].forEach(ev=>{
+  drop.addEventListener(ev, e=>{e.preventDefault(); drop.classList.add('dragover');});
+});
+['dragleave','drop'].forEach(ev=>{
+  drop.addEventListener(ev, e=>{e.preventDefault(); drop.classList.remove('dragover');});
+});
+drop.addEventListener('drop', e=>{
+  const f = e.dataTransfer.files[0];
+  if(f){ input.files = e.dataTransfer.files; handleFile(f); }
+});
+drop.addEventListener('click', e=>{
+  if(e.target.tagName!== 'INPUT' &&!e.target.classList.contains('choose-btn')) input.click();
+});
+</script>
+
+</body>
+</html>

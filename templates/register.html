@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register - NetraSenseAI</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <h1>👁️ NetraSenseAI</h1>
+    <p style="text-align:center;color:#7a8da8;font-size:12px;letter-spacing:0.5px;margin:6px 0 20px;">AI-POWERED EYE SCREENING PLATFORM</p>
+    
+    <h2 style="text-align:center;color:#0f2c4d;font-size:24px;font-weight:700;">Create Account</h2>
+    <p style="text-align:center;color:#7a8da8;font-size:13px;margin:6px 0 24px;">Start your AI eye screening journey</p>
+    
+    <form method="POST">
+      <input type="text" name="fullname" placeholder="👤 Full Name" required>
+      <input type="email" name="email" placeholder="📧 Email address" required>
+      <input type="password" name="password" placeholder="🔒 Create Password" required>
+      <input type="password" name="confirm" placeholder="🔒 Confirm Password" required>
+      
+      <button type="submit">Create Account →</button>
+    </form>
+
+    <p style="text-align:center;margin-top:20px;font-size:13px;color:#7a8da8;">
+      Already have an account? <a href="/login" style="color:#1e88e5;font-weight:700;text-decoration:none;">Login</a>
+    </p>
+
+    <div style="display:flex;justify-content:center;gap:8px;margin-top:20px;flex-wrap:wrap">
+      <span style="font-size:11px;background:#f0f7ff;color:#1565C0;padding:6px 12px;border-radius:20px;font-weight:600;border:1px solid #d6eaff;">⚡ EfficientNetB0</span>
+      <span style="font-size:11px;background:#f0f7ff;color:#1565C0;padding:6px 12px;border-radius:20px;font-weight:600;border:1px solid #d6eaff;">🎯 91% Accuracy</span>
+      <span style="font-size:11px;background:#f0f7ff;color:#1565C0;padding:6px 12px;border-radius:20px;font-weight:600;border:1px solid #d6eaff;">🔒 Secure</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

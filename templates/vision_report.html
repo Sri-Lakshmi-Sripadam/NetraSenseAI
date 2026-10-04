@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Reports - NetraSenseAI</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:#f5f9ff; min-height:100vh;}
+.header{background:linear-gradient(135deg,#0f2c4d,#1565C0); color:white; padding:25px; text-align:center;}
+.container{width:92%; max-width:900px; margin:30px auto;}
+.card{background:white; padding:22px; border-radius:16px; margin-bottom:18px; box-shadow:0 5px 20px rgba(0,0,0,0.07); border-left:5px solid #1565C0;}
+.card h3{color:#0f2c4d; font-size:17px; margin-bottom:8px;}
+.card p{color:#333; font-size:14px; line-height:1.5;}
+.badge{display:inline-block; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:600; margin-top:8px;}
+.ai{border-left-color:#e91e63;} .vision{border-left-color:#00bcd4;} .symptom{border-left-color:#ff9800;}
+.normal{background:#e8f5e9; color:#2e7d32;} .issue{background:#fff3e0; color:#e65100;} .pending{background:#f3e5f5; color:#6a1b9a;}
+.overall{background:linear-gradient(135deg,#e3f2fd,#bbdefb); text-align:center; padding:28px;}
+.btn{display:inline-block; margin:8px; padding:11px 22px; border-radius:10px; text-decoration:none; font-weight:600; font-size:14px;}
+.btn-primary{background:#1565C0; color:white;} .btn-secondary{background:white; color:#0f2c4d; border:1px solid #ddd;}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>📁 My Reports</h1>
+    <p>{{ overall }} | {{ reports|length }} Tests Done</p>
+</div>
+
+<div class="container">
+
+    <!-- Current Session Summary -->
+    <div class="card overall">
+        <h3>📊 Current Session Summary</h3>
+        <p style="margin-top:10px;">👓 Visual: {{ visual_result }} | 🎨 Color: {{ color_result }} | 🌗 Contrast: {{ contrast_result }}</p>
+    </div>
+
+    <h2 style="margin:25px 0 15px; color:#0f2c4d;">📜 Full History</h2>
+
+    {% for r in reports %}
+    <div class="card {% if 'AI' in r['report_type'] %}ai{% elif 'Symptom' in r['report_type'] %}symptom{% else %}vision{% endif %}">
+        <h3>
+            {% if 'AI' in r['report_type'] %}🤖{% elif 'Symptom' in r['report_type'] %}📝{% else %}👓{% endif %}
+            {{ r['report_type'] }} 
+            <span style="font-size:11px; color:#888; font-weight:400;"> - {{ r['created_at'] }}</span>
+        </h3>
+        <p><strong>Result:</strong> {{ r['result'] }}</p>
+        {% if r['details'] %}
+        <p style="font-size:13px; color:#666; margin-top:6px;">{{ r['details'] }}</p>
+        {% endif %}
+        {% if r['image_path'] %}
+        <img src="/static/{{ r['image_path'] }}" style="width:120px; margin-top:12px; border-radius:10px; border:1px solid #eee;">
+        {% endif %}
+    </div>
+    {% else %}
+    <div class="card" style="text-align:center; color:#999;">
+        <p>No reports yet. Start with AI Detection / Vision Test / Symptom Checker</p>
+    </div>
+    {% endfor %}
+
+    <div style="text-align:center; margin-top:30px;">
+        <a href="/visiontest" class="btn btn-primary">👓 Vision Test</a>
+        <a href="/ai_detection" class="btn btn-primary">🤖 AI Test</a>
+        <a href="/symptoms" class="btn btn-primary">📝 Symptom Test</a>
+        <a href="/dashboard" class="btn btn-secondary">🏠 Dashboard</a>
+    </div>
+
+</div>
+
+</body>
+</html>

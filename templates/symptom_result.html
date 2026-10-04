@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Symptom Analysis - NetraSenseAI</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:#f5f9ff;min-height:100vh}
+.header-mini{background:linear-gradient(135deg,#0f2c4d,#1565C0 70%,#1e88e5);padding:16px 6%;display:flex;justify-content:space-between;align-items:center;color:white;position:sticky;top:0;z-index:10}
+.header-mini a{color:white;text-decoration:none;font-weight:700}
+.container{width:92%;max-width:1000px;margin:34px auto}
+.hero{
+  background:white;padding:28px 30px;border-radius:20px;text-align:center;
+  box-shadow:0 10px 30px rgba(15,44,77,0.06);border:1px solid #e8eef8;position:relative;overflow:hidden
+}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#0f2c4d,#1e88e5,#6a5af9)}
+.hero h1{color:#0f2c4d;font-size:30px;font-weight:800}
+.hero p{color:#7a8da8;font-size:14px;margin-top:6px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:24px}
+@media(max-width:850px){.grid{grid-template-columns:1fr}}
+.card{background:white;padding:26px;border-radius:18px;box-shadow:0 8px 28px rgba(15,44,77,0.06);border:1px solid #eef3fb}
+.card h2{color:#0f2c4d;font-size:16px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.card h2 .ic{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.card ul{padding-left:18px} .card li{margin:7px 0;color:#5a6d8a;font-size:14px;line-height:1.7}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.chip{background:#f0f7ff;color:#1565C0;padding:8px 14px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid #d6eaff;display:flex;align-items:center;gap:6px}
+.result-list{display:flex;flex-direction:column;gap:12px;margin-top:10px}
+.result-item{
+  background:linear-gradient(90deg,#fff5f5,#ffebee);border:1px solid #ffcdd2;color:#c62828;
+  padding:14px 18px;border-radius:12px;font-weight:700;font-size:15px;display:flex;align-items:center;gap:12px;
+  animation: slide 0.5s ease
+}
+.result-item span{font-size:22px}
+@keyframes slide{from{transform:translateX(-20px);opacity:0}to{transform:translateX(0);opacity:1}}
+.reco{background:linear-gradient(135deg,#e8f5e9,#f1f8e9);border:1px solid #c8e6c9;padding:18px;border-radius:14px;color:#2e7d32;font-size:14px;line-height:1.7;margin-top:10px}
+.warning{margin-top:24px;background:linear-gradient(90deg,#fff8e1,#fff3c4);border-left:5px solid #FFA000;padding:20px;border-radius:14px}
+.actions{display:flex;gap:12px;justify-content:center;margin-top:28px;flex-wrap:wrap}
+.btn{padding:13px 26px;border-radius:13px;text-decoration:none;font-weight:700;font-size:14px;transition:0.3s;display:inline-block}
+.btn-blue{background:linear-gradient(90deg,#0f2c4d,#1e88e5);color:white;box-shadow:0 8px 20px rgba(21,101,192,0.3)}
+.btn-white{background:white;color:#0f2c4d;border:2px solid #e8eef8}
+.btn:hover{transform:translateY(-2px)}
+</style>
+</head>
+<body>
+
+<div class="header-mini">
+  <a href="/dashboard">👁️ NetraSenseAI</a>
+  <div style="display:flex;gap:10px;">
+    <a href="/symptoms" style="background:rgba(255,255,255,0.15);padding:8px 16px;border-radius:20px;font-size:13px;border:1px solid rgba(255,255,255,0.2)">🔄 Check Again</a>
+    <a href="/dashboard" style="background:rgba(255,255,255,0.15);padding:8px 16px;border-radius:20px;font-size:13px;border:1px solid rgba(255,255,255,0.2)">Dashboard</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="hero">
+    <h1>🩺 Symptom Analysis Result</h1>
+    <p>AI preliminary assessment based on <b>{{ symptoms|length }} symptoms</b> you selected • Not a medical diagnosis</p>
+    <div style="margin-top:16px;display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center">
+      <span style="background:#f0f7ff;color:#1565C0;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid #d6eaff;">🤖 AI Analyzer</span>
+      <span style="background:#e8f5e9;color:#2e7d32;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;">{{ symptoms|length }} Symptoms Checked</span>
+      <span style="background:#fff3e0;color:#ef6c00;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;">⚡ Instant Result</span>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2><span class="ic" style="background:#e3f2fd">📋</span>Selected Symptoms ({{ symptoms|length }})</h2>
+      <div class="chips">
+        {% for symptom in symptoms %}
+        <span class="chip">🔹 {{ symptom }}</span>
+        {% endfor %}
+      </div>
+      <p style="margin-top:14px;font-size:12px;color:#7a8da8;">Based on your inputs, our AI mapped possible eye conditions beside.</p>
+    </div>
+
+    <div class="card" style="border:1px solid #ffcdd2;">
+      <h2><span class="ic" style="background:#ffebee">🩺</span>Possible Eye Conditions</h2>
+      <div class="result-list">
+        {% for disease in result %}
+        <div class="result-item"><span>⚠️</span> {{ disease }}</div>
+        {% endfor %}
+      </div>
+      {% if not result %}
+      <div style="background:#e8f5e9;border:1px solid #c8e6c9;color:#2e7d32;padding:14px;border-radius:12px;font-weight:600;margin-top:10px;">
+        ✅ No major condition detected from selected symptoms. Still monitor eye health regularly!
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="grid" style="margin-top:22px;">
+    <div class="card">
+      <h2><span class="ic" style="background:#e8f5e9">💡</span>Recommendation</h2>
+      <div class="reco">
+        This symptom checker provides only a <b>preliminary assessment</b>. It uses rule-based mapping + AI logic to suggest possible conditions. For accurate diagnosis, please consult a qualified ophthalmologist. Early checkup can prevent vision loss.
+      </div>
+      <div style="margin-top:14px;background:#f8fbff;border:1px solid #eef3fb;padding:14px;border-radius:12px;">
+        <p style="font-size:13px;color:#0f2c4d;font-weight:700;">👨‍⚕️ What to do next?</p>
+        <ul style="margin-top:8px;">
+          <li>Book eye checkup within 7 days if symptoms persist</li>
+          <li>Follow 20-20-20 rule for screen use</li>
+          <li>Upload eye image in AI Detection for deeper scan</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="ic" style="background:#fff3e0">👁</span>Healthy Eye Care Tips</h2>
+      <ul>
+        <li><b>20-20-20 rule</b> while using screens</li>
+        <li>Drink plenty of water & stay hydrated</li>
+        <li>Eat carrots, spinach & Vitamin-A rich foods</li>
+        <li>Wear UV protective sunglasses outdoors</li>
+        <li>Avoid rubbing your eyes</li>
+        <li>Get regular eye checkups yearly</li>
+        <li>Adjust screen brightness & keep distance</li>
+      </ul>
+      <a href="/ai_detection" style="display:inline-block;margin-top:16px;background:linear-gradient(90deg,#0f2c4d,#1e88e5);color:white;padding:10px 18px;border-radius:10px;text-decoration:none;font-weight:700;font-size:13px;">🤖 Try AI Image Scan →</a>
+    </div>
+  </div>
+
+  <div class="warning">
+    <h3 style="color:#8d6e00;font-size:15px;">⚠ Disclaimer</h3>
+    <p style="margin-top:8px;line-height:1.7;font-size:13px;color:#6d4c00;">
+      NetraSenseAI is an <b>AI-assisted screening tool</b>. It is not a replacement for professional medical advice or diagnosis. Always consult an ophthalmologist if you experience persistent eye problems, severe pain, or sudden vision loss.
+    </p>
+  </div>
+
+  <div class="actions">
+    <a href="/symptoms" class="btn btn-blue">🔄 Check Again</a>
+    <a href="/dashboard" class="btn btn-white">🏠 Dashboard</a>
+    <a href="/ai_detection" class="btn btn-white">🤖 AI Detection</a>
+  </div>
+
+</div>
+
+</body>
+</html>

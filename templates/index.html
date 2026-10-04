@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NetraSenseAI - AI Eye Disease Detection Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:#f5f9ff;min-height:100vh;overflow-x:hidden}
+.hero{
+  background: linear-gradient(135deg,#0f2c4d 0%,#1565C0 60%,#1e88e5 100%);
+  color:white; padding:90px 7% 110px; position:relative; overflow:hidden;
+  text-align:center;
+}
+.hero::before{
+  content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size:32px 32px;
+}
+.hero h1{font-size:56px;font-weight:800;letter-spacing:-1.5px;position:relative;line-height:1.1}
+.hero h1 span{background:linear-gradient(90deg,#8ec5ff,#ffffff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero h3{font-weight:400; opacity:0.92; margin-top:16px; font-size:20px; position:relative}
+.hero p{max-width:680px;margin:18px auto 0;line-height:1.7;opacity:0.85;font-size:16px;position:relative}
+.btn-group{margin-top:35px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative}
+.btn-primary{background:white;color:#0f2c4d;padding:14px 34px;border-radius:14px;text-decoration:none;font-weight:700;font-size:15px;box-shadow:0 10px 25px rgba(0,0,0,0.18);transition:0.3s;display:inline-block}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 35px rgba(0,0,0,0.25)}
+.btn-secondary{background:rgba(255,255,255,0.12);color:white;padding:14px 34px;border-radius:14px;text-decoration:none;font-weight:600;font-size:15px;border:1px solid rgba(255,255,255,0.25);backdrop-filter:blur(10px);transition:0.3s;display:inline-block}
+.btn-secondary:hover{background:rgba(255,255,255,0.2);transform:translateY(-3px)}
+.stats{margin-top:45px;display:flex;justify-content:center;gap:20px;flex-wrap:wrap;position:relative}
+.stats div{background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);padding:12px 22px;border-radius:14px;border:1px solid rgba(255,255,255,0.15);font-size:14px;font-weight:600}
+.features{width:92%;max-width:1250px;margin:-50px auto 60px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;position:relative;z-index:2}
+.feat-card{background:white;padding:28px 24px;border-radius:18px;text-align:center;box-shadow:0 10px 30px rgba(15,44,77,0.07);border:1px solid #e8eef8;transition:0.3s}
+.feat-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(21,101,192,0.15)}
+.feat-card .ic{width:70px;height:70px;margin:0 auto 14px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:32px}
+.feat-card h4{color:#0f2c4d;font-size:16px;margin-bottom:8px}
+.feat-card p{color:#5a6d8a;font-size:13px;line-height:1.6}
+.footer{text-align:center;padding:30px;color:#7a8da8;font-size:13px;border-top:1px solid #e8eef8;background:white}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>👁️ NetraSense<span>AI</span></h1>
+  <h3>Intelligent Eye Health Screening and Monitoring System</h3>
+  <p>Monitor your eye health with AI-powered screening, symptom analysis, and personalized recommendations. Built with EfficientNetB0 • 91% Accuracy</p>
+  
+  <div class="btn-group">
+    <a href="/login" class="btn-primary">Login to Dashboard →</a>
+    <a href="/register" class="btn-secondary">Create Free Account</a>
+  </div>
+
+  <div class="stats">
+    <div>🧠 7.7M Params</div>
+    <div>👁️ 5 Diseases</div>
+    <div>📊 2000+ Images</div>
+    <div>🎯 91% Accurate</div>
+  </div>
+</div>
+
+<div class="features">
+  <div class="feat-card">
+    <div class="ic" style="background:linear-gradient(135deg,#e3f2fd,#bbdefb);">👓</div>
+    <h4>Vision Test</h4>
+    <p>Visual acuity, color vision & contrast sensitivity screening in seconds</p>
+  </div>
+  <div class="feat-card">
+    <div class="ic" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);">🤖</div>
+    <h4>AI Detection</h4>
+    <p>Upload eye image & detect cataract, glaucoma & more with AI</p>
+  </div>
+  <div class="feat-card">
+    <div class="ic" style="background:linear-gradient(135deg,#fff3e0,#ffe0b2);">📊</div>
+    <h4>Smart Report</h4>
+    <p>Get instant screening report & personalized eye care recommendations</p>
+  </div>
+</div>
+
+<div class="footer">
+  <h3 style="color:#0f2c4d;margin-bottom:6px;">NetraSenseAI</h3>
+  <p>This is a screening tool and does not replace a professional ophthalmologist's diagnosis.</p>
+  <p style="margin-top:10px;font-weight:600;">© 2026 NetraSenseAI | Flask • TensorFlow • EfficientNetB0 | All Rights Reserved</p>
+</div>
+
+</body>
+</html>

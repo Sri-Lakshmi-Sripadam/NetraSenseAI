@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vision Test - NetraSenseAI</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Geologica:wght@700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:#f5f9ff;min-height:100vh}
+.header-mini{background:linear-gradient(135deg,#0f2c4d,#1565C0 70%,#1e88e5);padding:16px 6%;display:flex;justify-content:space-between;align-items:center;color:white;position:sticky;top:0;z-index:10}
+.header-mini a{color:white;text-decoration:none;font-weight:700}
+.container{width:92%;max-width:1000px;margin:30px auto}
+.hero{background:white;padding:24px 28px;border-radius:18px;text-align:center;box-shadow:0 8px 25px rgba(15,44,77,0.06);border:1px solid #eef3fb;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#0f2c4d,#1e88e5,#6a5af9)}
+.hero h1{color:#0f2c4d;font-size:28px;font-weight:800}
+.hero p{color:#7a8da8;font-size:13px;margin-top:6px}
+.steps{display:flex;justify-content:center;gap:12px;margin-top:16px;flex-wrap:wrap}
+.steps span{padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid #e8eef8;color:#5a6d8a;background:#f8fbff}
+.steps span.active{background:#0f2c4d;color:white;border-color:#0f2c4d}
+.section{background:white;margin-top:22px;padding:30px;border-radius:20px;box-shadow:0 8px 28px rgba(15,44,77,0.06);border:1px solid #eef3fb;text-align:center;position:relative;overflow:hidden}
+.section::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px}
+.section:nth-of-type(1)::before{background:linear-gradient(90deg,#1e88e5,#64b5f6)}
+.section:nth-of-type(2)::before{background:linear-gradient(90deg,#8e24aa,#ce93d8)}
+.section:nth-of-type(3)::before{background:linear-gradient(90deg,#00897b,#80cbc4)}
+.section h2{color:#0f2c4d;font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px}
+.section h2.ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.letters-box{
+  margin:24px auto;background:linear-gradient(180deg,#f8fbff,#ffffff);
+  border:2px solid #eef3fb;border-radius:18px;padding:40px 20px;min-height:180px;
+  display:flex;align-items:center;justify-content:center;box-shadow:inset 0 2px 10px rgba(15,44,77,0.04)
+}
+#letters{font-family:'Geologica',monospace;font-weight:700;letter-spacing:12px;color:#0f2c4d;transition:0.4s;text-shadow:0 2px 10px rgba(15,44,77,0.08)}
+.btn{padding:12px 24px;margin:8px;border:none;border-radius:12px;cursor:pointer;font-weight:700;font-size:14px;transition:0.25s}
+.btn-primary{background:linear-gradient(90deg,#0f2c4d,#1e88e5);color:white;box-shadow:0 6px 18px rgba(21,101,192,0.25)}
+.btn-secondary{background:white;color:#0f2c4d;border:2px solid #e8eef8}
+.btn:hover{transform:translateY(-2px)}
+.result{margin-top:20px;padding:14px 18px;border-radius:12px;font-size:15px;font-weight:700;display:none}
+.result.good{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7}
+.result.warn{background:#fff3e0;color:#ef6c00;border:1px solid #ffcc80}
+.input{padding:14px 18px;width:160px;text-align:center;font-size:22px;font-weight:700;border:2px solid #e8eef8;border-radius:12px;outline:none;transition:0.3s;color:#0f2c4d}
+.input:focus{border-color:#1e88e5;box-shadow:0 0 0 4px rgba(30,136,229,0.1)}
+.contrast-demo{font-size:48px;font-weight:800;color:#bdbdbd;letter-spacing:6px;margin:20px 0;transition:0.3s}
+.contrast-controls{display:flex;justify-content:center;gap:12px;margin-top:16px}
+</style>
+</head>
+<body>
+
+<div class="header-mini">
+  <a href="/dashboard">👁️ NetraSenseAI</a>
+  <a href="/dashboard" style="background:rgba(255,255,255,0.15);padding:8px 16px;border-radius:20px;font-size:13px;border:1px solid rgba(255,255,255,0.2)">← Dashboard</a>
+</div>
+
+<div class="container">
+
+  <div class="hero">
+    <h1>👁️ Vision Test Suite</h1>
+    <p>Sit 60cm away • Bright room • No glasses cheating for first round • Basic screening only</p>
+    <div class="steps">
+      <span class="active">1. Visual Acuity</span><span>2. Color Vision</span><span>3. Contrast</span><span>📄 Report</span>
+    </div>
+  </div>
+
+  <!-- Visual Acuity -->
+  <div class="section">
+    <h2><span class="ic" style="background:#e3f2fd">👀</span> Visual Acuity Test</h2>
+    <p style="color:#7a8da8;font-size:13px;margin-top:8px;">Tap "I Can Read" to go smaller • Tap "Can't Read" to finish</p>
+    <div class="letters-box">
+      <div id="letters" style="font-size:72px;">E</div>
+    </div>
+    <div>
+      <button class="btn btn-primary" onclick="onCanRead()">✅ I Can Read</button>
+      <button class="btn btn-secondary" onclick="onCantRead()">❌ Can't Read</button>
+    </div>
+    <div id="acuityResult" class="result"></div>
+    <p style="margin-top:12px;font-size:11px;color:#9aa8bd;">Level <span id="levelNum">1</span> / 6 • Smaller = Better Vision</p>
+  </div>
+
+  <!-- Color Vision -->
+  <div class="section">
+    <h2><span class="ic" style="background:#f3e5f5">🎨</span> Color Vision Test</h2>
+    <p style="color:#7a8da8;font-size:13px;margin-top:8px;">What number do you see in the image below?</p>
+    <div style="margin:20px auto;max-width:300px;background:#f8fbff;padding:16px;border-radius:16px;border:1px solid #eef3fb;">
+      <img src="{{ url_for('static', filename='images/plt2.jpg (2).png') }}" width="100%" style="border-radius:12px;display:block;" onerror="this.src='https://via.placeholder.com/280x280/e3f2fd/1565C0?text=Color+Test+Image';">
+    </div>
+    <form method="POST" style="margin-top:16px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;align-items:center;">
+      <input type="text" name="answer" class="input" placeholder="12?" required autocomplete="off">
+      <button type="submit" class="btn btn-primary">Submit →</button>
+    </form>
+    {% if result %}
+    <div class="result" style="display:block; margin-top:16px;" id="colorResultServer">
+      <div style="font-size:16px;color: {% if 'Normal' in result %}#2e7d32{% else %}#c62828{% endif %};font-weight:800;">{{ result }}</div>
+    </div>
+    <script>document.getElementById('colorResultServer').className = 'result {% if "Normal" in result %}good{% else %}poor{% endif %}'; document.getElementById('colorResultServer').style.display='block';</script>
+    {% endif %}
+  </div>
+
+  <!-- Contrast Test -->
+  <div class="section">
+    <h2><span class="ic" style="background:#e0f2f1">🌓</span> Contrast Sensitivity Test</h2>
+    <p style="color:#7a8da8;font-size:13px;margin-top:8px;">Can you read the faint word? Adjust your brightness if needed.</p>
+    <div class="letters-box" style="min-height:120px;">
+      <div class="contrast-demo" id="contrastWord">VISION</div>
+    </div>
+    <div class="contrast-controls">
+      <button class="btn btn-primary" onclick="contrastYes()">Yes, I Can Read</button>
+      <button class="btn btn-secondary" onclick="contrastNo()">No, Can't See</button>
+    </div>
+    <div id="contrastResult" class="result"></div>
+  </div>
+
+  <div style="text-align:center;margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <a href="/dashboard" style="background:white;color:#0f2c4d;padding:13px 26px;border-radius:13px;text-decoration:none;font-weight:700;border:2px solid #e8eef8;">← Dashboard</a>
+    <a href="/report" style="background:linear-gradient(90deg,#0f2c4d,#1e88e5);color:white;padding:13px 26px;border-radius:13px;text-decoration:none;font-weight:700;box-shadow:0 8px 20px rgba(21,101,192,0.3);">📄 View Full Report →</a>
+  </div>
+
+</div>
+<script>
+const acuityLevels=[
+ {text:"E",size:"72px",result:"Poor Vision - Level 1/6"},
+ {text:"F P",size:"58px",result:"Below Average - Level 2/6"},
+ {text:"T O Z",size:"44px",result:"Moderate - Level 3/6"},
+ {text:"L P E D",size:"32px",result:"Good - Level 4/6"},
+ {text:"E D F C Z P",size:"24px",result:"Very Good - Level 5/6"},
+ {text:"F E L O P Z D",size:"16px",result:"Excellent (Approx. 6/6) - Level 6/6"}
+];
+let currentLevel=0;
+function showLevel(){
+ let el=document.getElementById("letters");
+ if(!el) return;
+ el.innerText=acuityLevels[currentLevel].text;
+ el.style.fontSize=acuityLevels[currentLevel].size;
+ let ln=document.getElementById('levelNum');
+ if(ln) ln.innerText=currentLevel+1;
+}
+function saveResult(test,value){
+ fetch('/save_vision_result',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({test:test,value:value})});
+}
+function onCanRead(){
+ if(currentLevel<acuityLevels.length-1){currentLevel++;showLevel();}
+ else{
+  let r=acuityLevels[currentLevel].result;
+  let res=document.getElementById("acuityResult");
+  if(res){res.innerText="🎉 Vision: "+r;res.style.display="block";}
+  saveResult('visual',r);
+ }
+}
+function onCantRead(){
+ let r=acuityLevels[currentLevel].result;
+ let res=document.getElementById("acuityResult");
+ if(res){res.innerText=r;res.style.display="block";}
+ saveResult('visual',r);
+}
+function contrastYes(){
+ let v="Normal - Contrast sensitivity appears normal";
+ let r=document.getElementById('contrastResult');
+ if(r){r.innerText="✅ "+v;r.style.display="block";}
+ saveResult('contrast',v);
+}
+function contrastNo(){
+ let v="Reduced - Contrast sensitivity may be reduced";
+ let r=document.getElementById('contrastResult');
+ if(r){r.innerText="⚠️ "+v;r.style.display="block";}
+ saveResult('contrast',v);
+}
+showLevel();
+</script>
+
+</body>
+</html>

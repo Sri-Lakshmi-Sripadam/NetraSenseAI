@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Result - {{ prediction }}</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:#f5f9ff;min-height:100vh}
+.header-mini{
+  background:linear-gradient(135deg,#0f2c4d,#1565C0 70%,#1e88e5);
+  padding:18px 6%;display:flex;justify-content:space-between;align-items:center;color:white;
+  position:sticky;top:0;z-index:10
+}
+.header-mini a{color:white;text-decoration:none;font-weight:700}
+.back-btn{background:rgba(255,255,255,0.15);padding:8px 18px;border-radius:20px;font-size:13px;border:1px solid rgba(255,255,255,0.2)}
+.container{width:92%;max-width:1100px;margin:36px auto}
+.top-grid{display:grid;grid-template-columns:380px 1fr;gap:24px}
+@media(max-width:900px){.top-grid{grid-template-columns:1fr}}
+.img-card{background:white;padding:22px;border-radius:20px;box-shadow:0 10px 30px rgba(15,44,77,0.07);border:1px solid #eef3fb;text-align:center;position:relative;overflow:hidden}
+.img-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#0f2c4d,#1e88e5,#6a5af9)}
+.img-card img{width:100%;max-width:320px;border-radius:16px;border:3px solid #f0f7ff;box-shadow:0 8px 25px rgba(15,44,77,0.12)}
+.img-card h4{color:#0f2c4d;margin-top:14px;font-size:14px}
+.result-hero{
+  background:linear-gradient(135deg,#0f2c4d,#1565C0);color:white;padding:32px;border-radius:20px;
+  box-shadow:0 15px 40px rgba(15,44,77,0.25);position:relative;overflow:hidden
+}
+.result-hero::after{content:'';position:absolute;top:-40%;right:-20%;width:60%;height:140%;background:radial-gradient(circle,rgba(255,255,255,0.12),transparent 70%)}
+.result-hero h1{font-size:28px;font-weight:800;position:relative}
+.result-hero .disease{font-size:42px;font-weight:800;margin:14px 0 10px;letter-spacing:-1px;position:relative}
+.conf-box{margin-top:18px;background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);padding:16px 18px;border-radius:14px;border:1px solid rgba(255,255,255,0.15);position:relative}
+.conf-bar{height:10px;background:rgba(255,255,255,0.2);border-radius:10px;margin-top:10px;overflow:hidden}
+.conf-fill{height:100%;background:linear-gradient(90deg,#8ec5ff,#ffffff);border-radius:10px;transition:1.5s;width:0}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-top:26px}
+.info-card{background:white;padding:26px;border-radius:18px;box-shadow:0 8px 30px rgba(15,44,77,0.06);border:1px solid #eef3fb}
+.info-card h2{color:#0f2c4d;font-size:17px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.info-card h2 .ic{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.info-card p, .info-card ul{color:#5a6d8a;font-size:14px;line-height:1.8}
+.info-card ul{padding-left:18px}
+.action{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+.btn-primary{background:linear-gradient(90deg,#0f2c4d,#1565C0,#1e88e5);color:white;padding:14px 28px;border-radius:14px;text-decoration:none;font-weight:700;font-size:14px;box-shadow:0 10px 25px rgba(21,101,192,0.3)}
+.btn-secondary{background:white;color:#0f2c4d;padding:14px 28px;border-radius:14px;text-decoration:none;font-weight:700;font-size:14px;border:2px solid #e8eef8}
+.warning{margin-top:22px;background:linear-gradient(90deg,#fff8e1,#fff3c4);border:1px solid #ffe082;color:#8d6e00;padding:16px 20px;border-radius:14px;font-size:13px;font-weight:600;display:flex;gap:12px}
+</style>
+</head>
+<body>
+
+<div class="header-mini">
+  <a href="/dashboard">👁️ NetraSenseAI</a>
+  <div style="display:flex;gap:10px;">
+    <a href="/ai_detection" class="back-btn">🔄 New Scan</a>
+    <a href="/dashboard" class="back-btn">Dashboard</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="top-grid">
+    <div class="img-card">
+      <!-- FIXED IMAGE PATH -->
+      <img src="{{ image_url if image_url else url_for('static', filename=image_path) }}" alt="Analyzed Eye" onerror="this.src='/{{ image_path }}'">
+      <h4>📸 Uploaded Eye Image</h4>
+      <p style="color:#7a8da8;font-size:12px;margin-top:6px;">Analyzed by MobileNetV2 • 93.5% Accuracy</p>
+      <div style="margin-top:16px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap">
+        <span style="background:#f0f7ff;color:#1565C0;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid #d6eaff;">{{ confidence }} Conf</span>
+        <span style="background:#e8f5e9;color:#2e7d32;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600;">AI Verified</span>
+      </div>
+    </div>
+
+    <div class="result-hero">
+      <h1>🤖 AI Detection Result</h1>
+      <div class="disease">{{ prediction }}</div>
+      <p style="opacity:0.85;font-size:14px;">Predicted by MobileNetV2 Deep Learning Model - 93.57% Accuracy</p>
+      
+      <div class="conf-box">
+        <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700;">
+          <span>🎯 Confidence Score</span><span id="confText">{{ confidence }}</span>
+        </div>
+        <div class="conf-bar"><div class="conf-fill" id="confFill"></div></div>
+        <p style="font-size:12px;opacity:0.8;margin-top:8px;">Model certainty • Higher = More reliable prediction</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <h2><span class="ic" style="background:#e3f2fd;">📖</span> Disease Description</h2>
+      <p>{{ description }}</p>
+    </div>
+    <div class="info-card">
+      <h2><span class="ic" style="background:#fff3e0;">🤒</span> Common Symptoms</h2>
+      <!-- FIXED LIST DISPLAY -->
+      {% if symptoms is string %}
+        <p>{{ symptoms }}</p>
+      {% else %}
+        <ul>
+        {% for s in symptoms %}
+          <li>{{ s }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+    <div class="info-card">
+      <h2><span class="ic" style="background:#e8f5e9;">🛡️</span> Recommended Precautions</h2>
+      {% if precautions is string %}
+        <p>{{ precautions }}</p>
+      {% else %}
+        <ul>
+        {% for p in precautions %}
+          <li>{{ p }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="warning">
+    <span style="font-size:22px;">⚠️</span>
+    <span>This is only an <b>AI screening result ({{ confidence }} confidence)</b>. It does not replace diagnosis by a qualified ophthalmologist. Please consult an eye specialist for confirmation. Early detection saves vision.<br><br><b>Doctor Advice:</b> {{ consult }}</span>
+  </div>
+
+  <div class="action">
+    <a href="/ai_detection" class="btn-primary">🔄 Analyze Another Image →</a>
+    <a href="/dashboard" class="btn-secondary">← Back to Dashboard</a>
+    <a href="javascript:window.print()" class="btn-secondary">🖨️ Print Report</a>
+  </div>
+
+</div>
+
+<script>
+// Animate confidence bar - FIXED
+window.onload = ()=>{
+  setTimeout(()=>{
+    let conf = "{{ confidence }}".replace('%','');
+    document.getElementById('confFill').style.width = conf + '%';
+  },300);
+}
+</script>
+
+</body>
+</html>
