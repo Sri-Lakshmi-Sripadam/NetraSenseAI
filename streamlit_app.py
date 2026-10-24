@@ -2,61 +2,61 @@ import streamlit as st
 from PIL import Image
 import os
 import tempfile
-import numpy as np
-
 from models.predict import predict_eye
 
-# Class names - Nee dataset prakaram
-CLASS_NAMES = ["No DR", "Mild DR", "Moderate DR", "Severe DR", "Proliferative DR"]
+st.set_page_config(page_title="NetraSenseAI", page_icon="👁️", layout="wide")
 
-st.set_page_config(page_title="NetraSenseAI", page_icon="👁️", layout="centered")
 st.title("👁️ NetraSenseAI - AI Based Eye Screening")
-st.markdown("Early detection of Diabetic Retinopathy using AI")
+st.markdown("Your original project logic")
 st.divider()
 
-uploaded_file = st.file_uploader("Eye Image Upload Chey", type=["jpg", "jpeg", "png"])
+uploaded_file = st.file_uploader("Eye Image Upload Chey (JPG/PNG)", type=["jpg","jpeg","png","webp"])
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
-    st.image(image, caption="Uploaded Image", use_column_width=True)
+    st.image(image, caption="Uploaded Image", width=350)
     
     if st.button("🔍 Analyze Now", type="primary"):
-        with st.spinner("AI Analyzing..."):
+        with st.spinner("AI Analyzing... Please wait..."):
             try:
                 with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as tmp:
                     image.save(tmp.name)
                     temp_path = tmp.name
+
+                # CORRECT CALL - Nee Flask app lo la 6 values
+                prediction, confidence, description, symptoms, precautions, consult = predict_eye(temp_path)
                 
-                raw_pred = predict_eye(temp_path)
+                try:
+                    conf_val = float(str(confidence).replace('%','').strip())
+                except:
+                    conf_val = 90.0
+
+                st.divider()
+                st.subheader("🔬 AI Detection Result")
                 
-                # Convert [[0.005, 0.43...]] -> proper label
-                probs = np.array(raw_pred[0]) if isinstance(raw_pred, (list, np.ndarray)) and len(np.array(raw_pred).shape) > 1 else np.array(raw_pred)
-                # Handle [[...]] case
-                if probs.ndim > 1:
-                    probs = probs[0]
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.metric("Prediction", prediction)
+                with col2:
+                    st.metric("Confidence", confidence)
+
+                st.progress(int(conf_val) if conf_val <=100 else 90)
+
+                st.write(f"**Description:** {description}")
                 
-                idx = int(np.argmax(probs))
-                label = CLASS_NAMES[idx] if idx < len(CLASS_NAMES) else f"Class {idx}"
-                confidence = float(probs[idx] * 100)
-                
-                if idx == 0:
-                    st.success(f"### ✅ Result: {label}")
-                    st.write(f"Confidence: {confidence:.2f}% - Healthy Eye")
-                else:
-                    st.warning(f"### ⚠️ Result: {label}")
-                    st.write(f"Confidence: {confidence:.2f}% - Please consult a doctor")
-                
-                # Show all probabilities for transparency
-                with st.expander("See Detailed Probabilities"):
-                    for i, p in enumerate(probs):
-                        st.write(f"{CLASS_NAMES[i]}: {p*100:.2f}%")
-                
+                with st.expander("🩺 Symptoms", expanded=True):
+                    st.write(symptoms)
+                with st.expander("🛡️ Precautions", expanded=True):
+                    st.write(precautions)
+                with st.expander("👨‍⚕️ Doctor Consultation", expanded=True):
+                    st.write(consult)
+
                 st.balloons()
                 os.unlink(temp_path)
-                
+
             except Exception as e:
-                st.error(f"Error: {e}")
+                st.error(f"Prediction Error: {e}")
+                st.info("models/predict.py lo emundo check chey")
 
 st.divider()
-st.markdown("Built by **Sripadam Lakshmi** | [GitHub](https://github.com/Sri-Lakshmi-Sripadam/NetraSenseAI)")
-st.caption("Disclaimer: For screening purpose only, not a medical diagnosis.")
+st.caption("Built by Sripadam Lakshmi | Same logic as Flask app")
