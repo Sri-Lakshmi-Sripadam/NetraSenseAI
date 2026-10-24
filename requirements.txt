@@ -1,8 +1,7 @@
-Flask
-tensorflow
-opencv-python
+Flask==2.3.3
+tensorflow==2.17.0
+pillow
 numpy
-Pillow
 gdown
 gunicorn
-streamlit
+werkzeug
